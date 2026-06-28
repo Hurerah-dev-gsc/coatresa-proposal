@@ -19,15 +19,22 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Use 'raw' for non-image files (PDF, docs, etc.), 'image' for images
+    // Determine resource type: image for images, video for audio/video, raw for everything else
     const imageTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'];
-    const resourceType = imageTypes.includes(file.type) ? 'image' as const : 'raw' as const;
+    const audioVideoTypes = file.type.startsWith('audio/') || file.type.startsWith('video/');
+    const resourceType = imageTypes.includes(file.type) ? 'image' as const : audioVideoTypes ? 'video' as const : 'raw' as const;
+
+    // Clean filename for Cloudinary public_id
+    const cleanName = file.name.replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9_-]/g, '_');
 
     const result = await new Promise<{ secure_url: string; public_id: string; original_filename: string; format: string; bytes: number }>((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         {
           folder: 'gsc-workshop',
           resource_type: resourceType,
+          public_id: cleanName + '_' + Date.now(),
+          use_filename: true,
+          unique_filename: true,
         },
         (error, result) => {
           if (error) reject(error);

@@ -14,6 +14,7 @@ interface FileRow {
   file_name: string;
   cloudinary_url: string;
   area_id: string | null;
+  file_type: string;
 }
 
 interface Area {
@@ -22,7 +23,6 @@ interface Area {
   nombre: string;
   como_trabaja: string;
   herramientas: string;
-  coordina: string;
   tareas: string;
   ia_ayuda: string;
 }
@@ -172,7 +172,8 @@ export default async function ResponsesPage() {
                       <div style={{ fontSize: ".68rem", textTransform: "uppercase", letterSpacing: ".14em", color: "#0025FF", fontWeight: 700, marginBottom: 12 }}>02 · Áreas</div>
                       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                         {subAreas.map((area, idx) => {
-                          const areaFiles = subFiles.filter((f) => f.area_id === area.id);
+                          const areaDocFiles = subFiles.filter((f) => f.area_id === area.id && f.file_type !== "audio");
+                          const areaAudioFiles = subFiles.filter((f) => f.area_id === area.id && f.file_type === "audio");
                           return (
                             <div key={area.id} style={{ background: "#fff", border: "1px solid rgba(18,20,27,.1)", borderRadius: 14, padding: "20px 22px" }}>
                               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
@@ -183,7 +184,6 @@ export default async function ResponsesPage() {
                               {[
                                 { label: "Cómo trabaja", val: area.como_trabaja },
                                 { label: "Herramientas", val: area.herramientas },
-                                { label: "Coordinación", val: area.coordina },
                                 { label: "Tareas repetitivas", val: area.tareas },
                                 { label: "IA podría ayudar", val: area.ia_ayuda },
                               ].filter((f) => f.val).map((f) => (
@@ -193,12 +193,23 @@ export default async function ResponsesPage() {
                                 </div>
                               ))}
 
-                              {areaFiles.length > 0 && (
+                              {areaDocFiles.length > 0 && (
                                 <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px dashed rgba(18,20,27,.12)" }}>
                                   <div style={{ fontWeight: 600, fontSize: ".82rem", color: "rgba(18,20,27,.5)", marginBottom: 6 }}>Archivos</div>
-                                  {areaFiles.map((f) => (
+                                  {areaDocFiles.map((f) => (
                                     <a key={f.id} href={f.cloudinary_url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#EFE9DC", borderRadius: 8, padding: "6px 12px", fontSize: ".82rem", color: "#0025FF", fontWeight: 600, textDecoration: "none", marginRight: 8, marginBottom: 6 }}>
                                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" /></svg>
+                                      {f.titulo || f.file_name}
+                                    </a>
+                                  ))}
+                                </div>
+                              )}
+                              {areaAudioFiles.length > 0 && (
+                                <div style={{ marginTop: 12, paddingTop: 12, borderTop: "1px dashed rgba(18,20,27,.12)" }}>
+                                  <div style={{ fontWeight: 600, fontSize: ".82rem", color: "rgba(18,20,27,.5)", marginBottom: 6 }}>Notas de audio</div>
+                                  {areaAudioFiles.map((f) => (
+                                    <a key={f.id} href={f.cloudinary_url} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(0,37,255,.06)", border: "1px solid rgba(0,37,255,.12)", borderRadius: 8, padding: "6px 12px", fontSize: ".82rem", color: "#0025FF", fontWeight: 600, textDecoration: "none", marginRight: 8, marginBottom: 6 }}>
+                                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
                                       {f.titulo || f.file_name}
                                     </a>
                                   ))}

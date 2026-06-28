@@ -10,10 +10,10 @@ interface AreaPayload {
   nombre: string;
   comoTrabaja: string;
   herramientas: string;
-  otrasAreas: string;
   tareasRepetitivas: string;
   dondeIA: string;
   files: FilePayload[];
+  audios: FilePayload[];
 }
 
 export async function POST(request: NextRequest) {
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       if (partError) console.error('Participants error:', partError);
     }
 
-    // Insert areas with their files
+    // Insert areas with their files and audios
     if (areas?.length) {
       for (const area of areas as AreaPayload[]) {
         const { data: areaData, error: areaError } = await supabase
@@ -67,7 +67,6 @@ export async function POST(request: NextRequest) {
             nombre: area.nombre,
             como_trabaja: area.comoTrabaja,
             herramientas: area.herramientas,
-            coordina: area.otrasAreas,
             tareas: area.tareasRepetitivas,
             ia_ayuda: area.dondeIA,
           })
@@ -80,24 +79,31 @@ export async function POST(request: NextRequest) {
         }
 
         // Insert area files
-        if (area.files?.length) {
-          const fileRows = area.files
-            .filter((f) => f.url)
-            .map((f) => ({
-              area_id: areaData.id,
-              submission_id: submissionId,
-              titulo: f.title,
-              file_name: f.title,
-              cloudinary_url: f.url,
-            }));
+        const allFiles = [
+          ...(area.files || []).filter((f) => f.url).map((f) => ({
+            area_id: areaData.id,
+            submission_id: submissionId,
+            titulo: f.title,
+            file_name: f.title,
+            cloudinary_url: f.url,
+            file_type: 'document',
+          })),
+          ...(area.audios || []).filter((f) => f.url).map((f) => ({
+            area_id: areaData.id,
+            submission_id: submissionId,
+            titulo: f.title,
+            file_name: f.title,
+            cloudinary_url: f.url,
+            file_type: 'audio',
+          })),
+        ];
 
-          if (fileRows.length) {
-            const { error: fileError } = await supabase
-              .from('files')
-              .insert(fileRows);
+        if (allFiles.length) {
+          const { error: fileError } = await supabase
+            .from('files')
+            .insert(allFiles);
 
-            if (fileError) console.error('Area files error:', fileError);
-          }
+          if (fileError) console.error('Area files error:', fileError);
         }
       }
     }
@@ -112,6 +118,7 @@ export async function POST(request: NextRequest) {
           titulo: f.title,
           file_name: f.title,
           cloudinary_url: f.url,
+          file_type: 'document',
         }));
 
       if (adicFileRows.length) {

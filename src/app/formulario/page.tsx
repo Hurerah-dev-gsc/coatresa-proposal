@@ -25,17 +25,17 @@ interface Area {
   nombre: string;
   comoTrabaja: string;
   herramientas: string;
-  coordina: string;
   tareas: string;
   iaAyuda: string;
   files: AreaFile[];
+  audios: AreaFile[];
 }
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
 /* ------------------------------------------------------------------ */
 
-let _uid = 100;
+let _uid = 200;
 const nid = () => ++_uid;
 
 /* ------------------------------------------------------------------ */
@@ -55,9 +55,11 @@ export default function FormularioPage() {
   ]);
 
   /* Section 02 state */
-  const [areas, setAreas] = useState<Area[]>([
-    { id: 2, nombre: "", comoTrabaja: "", herramientas: "", coordina: "", tareas: "", iaAyuda: "", files: [] },
-  ]);
+  const [areas, setAreas] = useState<Area[]>(
+    ["Marketing", "Comercial", "Administración", "Finanzas", "Operaciones", "RRHH"].map((n, i) => ({
+      id: i + 100, nombre: n, comoTrabaja: "", herramientas: "", tareas: "", iaAyuda: "", files: [], audios: []
+    }))
+  );
 
   /* Section 03 state */
   const [adicFiles, setAdicFiles] = useState<AreaFile[]>([]);
@@ -72,7 +74,7 @@ export default function FormularioPage() {
 
   /* ---- Area helpers ---- */
   const addArea = () =>
-    setAreas((as) => [...as, { id: nid(), nombre: "", comoTrabaja: "", herramientas: "", coordina: "", tareas: "", iaAyuda: "", files: [] }]);
+    setAreas((as) => [...as, { id: nid(), nombre: "", comoTrabaja: "", herramientas: "", tareas: "", iaAyuda: "", files: [], audios: [] }]);
   const removeArea = (id: number) =>
     setAreas((as) => as.filter((a) => a.id !== id));
   const setAreaField = (id: number, field: string, val: string) =>
@@ -83,6 +85,14 @@ export default function FormularioPage() {
     setAreas((as) => as.map((a) => (a.id === aid ? { ...a, files: a.files.filter((f) => f.id !== fid) } : a)));
   const setAreaFileField = (aid: number, fid: number, field: string, val: string | File | null) =>
     setAreas((as) => as.map((a) => (a.id === aid ? { ...a, files: a.files.map((f) => (f.id === fid ? { ...f, [field]: val } : f)) } : a)));
+
+  /* ---- Area audio helpers ---- */
+  const addAreaAudio = (aid: number) =>
+    setAreas((as) => as.map((a) => (a.id === aid ? { ...a, audios: [...a.audios, { id: nid(), titulo: "", fileName: "", file: null }] } : a)));
+  const removeAreaAudio = (aid: number, fid: number) =>
+    setAreas((as) => as.map((a) => (a.id === aid ? { ...a, audios: a.audios.filter((f) => f.id !== fid) } : a)));
+  const setAreaAudioField = (aid: number, fid: number, field: string, val: string | File | null) =>
+    setAreas((as) => as.map((a) => (a.id === aid ? { ...a, audios: a.audios.map((f) => (f.id === fid ? { ...f, [field]: val } : f)) } : a)));
 
   /* ---- Adic file helpers ---- */
   const addAdicFile = () =>
@@ -111,14 +121,19 @@ export default function FormularioPage() {
               .filter((f) => f.file)
               .map(async (f) => ({ title: f.titulo, url: await uploadFile(f.file!) }))
           );
+          const uploadedAudios = await Promise.all(
+            area.audios
+              .filter((f) => f.file)
+              .map(async (f) => ({ title: f.titulo, url: await uploadFile(f.file!) }))
+          );
           return {
             nombre: area.nombre,
             comoTrabaja: area.comoTrabaja,
             herramientas: area.herramientas,
-            otrasAreas: area.coordina,
             tareasRepetitivas: area.tareas,
             dondeIA: area.iaAyuda,
             files: uploadedFiles,
+            audios: uploadedAudios,
           };
         })
       );
@@ -184,7 +199,7 @@ export default function FormularioPage() {
           </div>
           <h1 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(2.2rem,6vw,3.4rem)", lineHeight: 1.05, letterSpacing: "-.02em", margin: 0 }}>Preparaci&oacute;n del Workshop</h1>
           <p style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(18,20,27,.72)", margin: "20px 0 0", maxWidth: "62ch" }}>
-            Este formulario nos ayuda a entender c&oacute;mo trabaja la empresa antes de la sesi&oacute;n, para llegar con propuestas concretas. Primero unas preguntas generales y despu&eacute;s un bloque por cada &aacute;rea, no solo marketing y comercial. No hay respuestas correctas: cuanto m&aacute;s real, mejor.
+            Este formulario nos ayuda a preparar la sesi&oacute;n y llegar con una base concreta. La idea es mirar toda la empresa, no solo un &aacute;rea, para ver d&oacute;nde la IA puede aportar y c&oacute;mo encaja en el recorrido completo, de la auditor&iacute;a inicial al acompa&ntilde;amiento.
           </p>
         </header>
 
@@ -193,14 +208,15 @@ export default function FormularioPage() {
         {/* ===== SECTION 01 — Visión general ===== */}
         <section style={{ marginBottom: 18 }}>
           <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "#0025FF", fontWeight: 600, marginBottom: 10 }}>01 &middot; Visi&oacute;n general</div>
-          <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.7rem", lineHeight: 1.15, letterSpacing: "-.01em", margin: "0 0 26px" }}>Preguntas generales</h2>
+          <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.7rem", lineHeight: 1.15, letterSpacing: "-.01em", margin: "0 0 10px" }}>Preguntas generales</h2>
+          <p style={{ fontSize: ".95rem", lineHeight: 1.6, color: "rgba(18,20,27,.6)", margin: "0 0 24px", maxWidth: "60ch" }}>Para situarnos en el conjunto de la empresa antes de entrar &aacute;rea por &aacute;rea.</p>
 
           {/* Q1 - Relación áreas */}
           <div style={{ marginBottom: 24 }}>
             <label style={{ display: "block", fontWeight: 600, fontSize: ".95rem", marginBottom: 7 }}>&iquest;C&oacute;mo se relacionan las &aacute;reas entre s&iacute;?</label>
             <span style={{ display: "block", fontSize: ".82rem", color: "rgba(18,20,27,.55)", margin: "-1px 0 10px", lineHeight: 1.45 }}>Un mapa simple de c&oacute;mo trabajan juntas.</span>
             <textarea
-              placeholder="Escriban aquí…"
+              placeholder="Completen aquí…"
               value={relacion}
               onChange={(e) => setRelacion(e.target.value)}
               onFocus={onFocus}
@@ -214,7 +230,7 @@ export default function FormularioPage() {
             <label style={{ display: "block", fontWeight: 600, fontSize: ".95rem", marginBottom: 7 }}>Sistemas y herramientas principales (a nivel de empresa)</label>
             <span style={{ display: "block", fontSize: ".82rem", color: "rgba(18,20,27,.55)", margin: "-1px 0 10px", lineHeight: 1.45 }}>CRM, ERP, carpetas, correo, software propio… Solo nombrarlos, sin accesos.</span>
             <textarea
-              placeholder="Escriban aquí…"
+              placeholder="Completen aquí…"
               value={sistemas}
               onChange={(e) => setSistemas(e.target.value)}
               onFocus={onFocus}
@@ -277,7 +293,7 @@ export default function FormularioPage() {
           <div style={{ marginBottom: 4 }}>
             <label style={{ display: "block", fontWeight: 600, fontSize: ".95rem", marginBottom: 7 }}>&iquest;Qu&eacute; esperan conseguir con la IA a nivel global de empresa?</label>
             <textarea
-              placeholder="Escriban aquí…"
+              placeholder="Completen aquí…"
               value={expectativas}
               onChange={(e) => setExpectativas(e.target.value)}
               onFocus={onFocus}
@@ -293,7 +309,7 @@ export default function FormularioPage() {
         <section style={{ marginBottom: 18 }}>
           <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "#0025FF", fontWeight: 600, marginBottom: 10 }}>02 &middot; Por &aacute;reas</div>
           <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.7rem", lineHeight: 1.15, letterSpacing: "-.01em", margin: "0 0 6px" }}>Un bloque por cada &aacute;rea</h2>
-          <p style={{ fontSize: ".95rem", lineHeight: 1.6, color: "rgba(18,20,27,.6)", margin: "0 0 24px", maxWidth: "60ch" }}>A&ntilde;adan tantas &aacute;reas como tengan: compras, producci&oacute;n, administraci&oacute;n, atenci&oacute;n al cliente, log&iacute;stica…</p>
+          <p style={{ fontSize: ".95rem", lineHeight: 1.6, color: "rgba(18,20,27,.6)", margin: "0 0 24px", maxWidth: "60ch" }}>A&ntilde;adan un bloque por cada &aacute;rea de su empresa. Ya hemos incluido algunas para empezar; pueden eliminarlas o a&ntilde;adir las que quieran (calidad, log&iacute;stica, atenci&oacute;n al cliente…).</p>
 
           {areas.map((area, idx) => (
             <div key={area.id} className="gs-area-card" style={{ position: "relative", background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 18, padding: "26px 26px 24px", marginBottom: 16 }}>
@@ -301,7 +317,7 @@ export default function FormularioPage() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <span style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: 34, height: 34, borderRadius: 9, background: "#0025FF", color: "#fff", fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1rem", padding: "0 8px" }}>{idx + 1}</span>
-                  <span style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.3rem", color: "#12141B" }}>{"Área " + (idx + 1)}</span>
+                  <span style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.3rem", color: "#12141B" }}>{area.nombre && area.nombre.trim() ? area.nombre : "Área " + (idx + 1)}</span>
                 </div>
                 {areas.length > 1 && (
                   <button
@@ -335,7 +351,7 @@ export default function FormularioPage() {
               <div style={{ marginBottom: 18 }}>
                 <label style={{ display: "block", fontWeight: 600, fontSize: ".92rem", marginBottom: 7 }}>&iquest;C&oacute;mo trabaja el &aacute;rea?</label>
                 <textarea
-                  placeholder="Escriban aquí…"
+                  placeholder="Completen aquí…"
                   value={area.comoTrabaja}
                   onChange={(e) => setAreaField(area.id, "comoTrabaja", e.target.value)}
                   onFocus={onFocus}
@@ -348,22 +364,9 @@ export default function FormularioPage() {
               <div style={{ marginBottom: 18 }}>
                 <label style={{ display: "block", fontWeight: 600, fontSize: ".92rem", marginBottom: 7 }}>&iquest;Qu&eacute; herramientas o programas usan?</label>
                 <textarea
-                  placeholder="Escriban aquí…"
+                  placeholder="Completen aquí…"
                   value={area.herramientas}
                   onChange={(e) => setAreaField(area.id, "herramientas", e.target.value)}
-                  onFocus={onFocus}
-                  onBlur={onBlurTextarea}
-                  style={{ width: "100%", border: "1px solid rgba(18,20,27,.18)", borderRadius: 12, padding: "13px 15px", fontSize: ".95rem", background: "#fff", color: "#12141B", minHeight: 84, resize: "vertical", lineHeight: 1.55, fontFamily: "inherit", boxSizing: "border-box" }}
-                />
-              </div>
-
-              {/* Coordinación */}
-              <div style={{ marginBottom: 18 }}>
-                <label style={{ display: "block", fontWeight: 600, fontSize: ".92rem", marginBottom: 7 }}>&iquest;Con qu&eacute; otras &aacute;reas trabajan o se coordinan?</label>
-                <textarea
-                  placeholder="Escriban aquí…"
-                  value={area.coordina}
-                  onChange={(e) => setAreaField(area.id, "coordina", e.target.value)}
                   onFocus={onFocus}
                   onBlur={onBlurTextarea}
                   style={{ width: "100%", border: "1px solid rgba(18,20,27,.18)", borderRadius: 12, padding: "13px 15px", fontSize: ".95rem", background: "#fff", color: "#12141B", minHeight: 84, resize: "vertical", lineHeight: 1.55, fontFamily: "inherit", boxSizing: "border-box" }}
@@ -374,7 +377,7 @@ export default function FormularioPage() {
               <div style={{ marginBottom: 18 }}>
                 <label style={{ display: "block", fontWeight: 600, fontSize: ".92rem", marginBottom: 7 }}>Tareas repetitivas que m&aacute;s tiempo les quitan</label>
                 <textarea
-                  placeholder="Escriban aquí…"
+                  placeholder="Completen aquí…"
                   value={area.tareas}
                   onChange={(e) => setAreaField(area.id, "tareas", e.target.value)}
                   onFocus={onFocus}
@@ -387,7 +390,7 @@ export default function FormularioPage() {
               <div style={{ marginBottom: 2 }}>
                 <label style={{ display: "block", fontWeight: 600, fontSize: ".92rem", marginBottom: 7 }}>&iquest;D&oacute;nde creen que la IA podr&iacute;a ayudar?</label>
                 <textarea
-                  placeholder="Escriban aquí…"
+                  placeholder="Completen aquí…"
                   value={area.iaAyuda}
                   onChange={(e) => setAreaField(area.id, "iaAyuda", e.target.value)}
                   onFocus={onFocus}
@@ -454,6 +457,29 @@ export default function FormularioPage() {
                 >
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
                   A&ntilde;adir archivo
+                </button>
+              </div>
+
+              {/* Audio notes */}
+              <div style={{ marginTop: 16, paddingTop: 16, borderTop: "1px dashed rgba(18,20,27,.18)" }}>
+                <label style={{ display: "block", fontWeight: 600, fontSize: ".92rem", marginBottom: 5 }}>Nota de audio</label>
+                <span style={{ display: "block", fontSize: ".82rem", color: "rgba(18,20,27,.55)", marginBottom: 12, lineHeight: 1.45 }}>&iquest;Prefieren explicarlo hablando? Adjunten una nota de audio.</span>
+
+                {area.audios.map((audio) => (
+                  <div key={audio.id} style={{ display: "flex", gap: 9, flexWrap: "wrap", alignItems: "center", marginBottom: 10 }}>
+                    <input type="text" placeholder="¿Qué es esta nota?" value={audio.titulo} onChange={(e) => setAreaAudioField(area.id, audio.id, "titulo", e.target.value)} onFocus={onFocus} onBlur={onBlurInput} style={{ flex: 1, minWidth: 190, border: "1px solid rgba(18,20,27,.18)", borderRadius: 10, padding: "11px 13px", fontSize: ".9rem", background: "#fff", color: "#12141B", fontFamily: "inherit", boxSizing: "border-box" }} />
+                    <label style={{ display: "inline-flex", alignItems: "center", gap: 7, border: "1px solid rgba(18,20,27,.2)", background: "#fff", borderRadius: 10, padding: "10px 14px", fontWeight: 600, fontSize: ".86rem", color: "#12141B", cursor: "pointer" }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                      Elegir audio
+                      <input type="file" accept="audio/*" style={{ display: "none" }} onChange={(e) => { const f = e.target.files?.[0]; if (f) { setAreaAudioField(area.id, audio.id, "fileName", f.name); setAreaAudioField(area.id, audio.id, "file", f); } }} />
+                    </label>
+                    <span style={{ fontSize: ".8rem", color: "rgba(18,20,27,.5)", maxWidth: 200, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{audio.fileName || "Ningún audio"}</span>
+                    <button type="button" onClick={() => removeAreaAudio(area.id, audio.id)} title="Quitar audio" style={{ flex: "none", width: 38, height: 38, borderRadius: 9, border: "1px solid rgba(18,20,27,.16)", background: "#fff", color: "rgba(18,20,27,.5)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+                  </div>
+                ))}
+                <button type="button" onClick={() => addAreaAudio(area.id)} style={{ display: "inline-flex", alignItems: "center", gap: 7, border: "1.5px dashed rgba(0,37,255,.4)", color: "#0025FF", background: "rgba(0,37,255,.04)", borderRadius: 10, padding: "9px 15px", fontWeight: 600, fontSize: ".86rem", cursor: "pointer", marginTop: 2 }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg>
+                  A&ntilde;adir nota de audio
                 </button>
               </div>
             </div>
@@ -535,8 +561,13 @@ export default function FormularioPage() {
           </button>
         </section>
 
+        <div style={{ height: 1, background: "rgba(18,20,27,.14)", margin: "40px 0" }} />
+        <p style={{ fontSize: ".95rem", lineHeight: 1.6, color: "rgba(18,20,27,.6)", margin: "0 0 0", maxWidth: "60ch" }}>
+          Con esto llegaremos a la sesi&oacute;n con un mapa de sus procesos, sus puntos de fricci&oacute;n y d&oacute;nde la IA puede aportar, para validar y priorizar juntos.
+        </p>
+
         {/* ===== SUBMIT ===== */}
-        <div style={{ marginTop: 44 }}>
+        <div style={{ marginTop: 32 }}>
           {!sent ? (
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 16 }}>
               <button

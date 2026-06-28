@@ -22,7 +22,7 @@ const NAV_ITEMS = [
   { href: "#workshop", label: "El Workshop" },
   { href: "#recorrido", label: "Recorrido" },
   { href: "#propuesta", label: "Propuesta" },
-  { href: "#contacto", label: "Agenda el workshop y rellena el formulario" },
+  { href: "#contacto", label: "Preparemos la sesión y agendemos el workshop" },
 ];
 
 const DINAMICAS = [
@@ -36,14 +36,14 @@ const DINAMICAS = [
 const FASES = [
   { id: "00", title: "Workshop transversal", desc: "Mapeo y priorización en toda la empresa. Punto de entrada, descontable.", border: "#0025FF" },
   { id: "01", title: "Fundamentos", desc: "Ordenamos las fuentes y montamos la infraestructura base.", border: "rgba(18,20,27,.16)" },
-  { id: "02", title: "Base de conocimiento", desc: "Catálogo, procedimientos e histórico, consultables por la IA.", border: "rgba(18,20,27,.16)" },
+  { id: "02", title: "Base de conocimiento", desc: "Catálogo, fichas técnicas, procedimientos e histórico, consultables por la IA.", border: "rgba(18,20,27,.16)" },
   { id: "03", title: "Configuración por departamento", desc: "Cada área con su espacio, conectores y usuarios.", border: "rgba(18,20,27,.16)" },
   { id: "04", title: "Casos en producción", desc: "Casos reales funcionando, con adopción medida.", border: "rgba(18,20,27,.16)" },
   { id: "05", title: "Agentes autónomos por rol", desc: "Evolución a agentes cuando los casos básicos funcionan.", border: "rgba(18,20,27,.16)" },
   { id: "06", title: "Acompañamiento continuo", desc: "Formación, ajustes y transferencia de autonomía.", border: "#92D15C" },
 ];
 
-const GANTT_WEEKS = ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"];
+const GANTT_WEEKS = ["M1", "M2", "M3", "M4", "M5", "M6"];
 
 const PILLS = [
   "Líder español en recubrimientos técnicos PTFE, con reconocimiento europeo",
@@ -68,6 +68,12 @@ const MATRIX_DOTS = [
   { left: "37%", top: "69%", w: 10, bg: "rgba(18,20,27,.4)", shadow: "0 0 0 4px rgba(18,20,27,.10)", anim: "gsFloat 4.9s ease-in-out 0.2s infinite", popCls: "gs-pop--l", label: "Iniciativa J", impact: "Bajo", viable: "Baja" },
 ];
 
+const BP = { display: "flex", gap: 10, alignItems: "flex-start", margin: "0 0 9px" } as const;
+const BD = { flex: "none", color: "#0025FF", fontWeight: 700, lineHeight: 1.55 } as const;
+const BT = { fontSize: ".9rem", lineHeight: 1.6, color: "rgba(18,20,27,.7)" } as const;
+const SH = { fontSize: ".72rem", textTransform: "uppercase" as const, letterSpacing: ".12em", color: "rgba(18,20,27,.5)", fontWeight: 700, margin: "4px 0 10px" };
+const PP = { fontSize: ".9rem", lineHeight: 1.65, color: "rgba(18,20,27,.7)", margin: "0 0 12px" } as const;
+
 const GOVERNANCE = [
   {
     num: "1 · Residencia",
@@ -78,7 +84,11 @@ const GOVERNANCE = [
       "Sin transferencias internacionales por diseño para su contenido.",
       "Transferencias residuales cubiertas con Cláusulas Contractuales Tipo (CCT).",
     ],
-    detail: "Las bases de conocimiento, los embeddings e índices vectoriales, los repositorios de documentos y los logs se alojan en una región de la UE (p. ej. Azure West/North Europe, AWS eu-central-1 / eu-west-1, Google Vertex europe-west). La inferencia queda fijada a esa misma región de la UE: los prompts y el contexto recuperado se procesan allí, no solo se almacenan.",
+    detail: <>
+      <p style={PP}>Las bases de conocimiento, los embeddings e índices vectoriales, los repositorios de documentos y los logs se alojan en una región de la UE (p. ej. Azure West/North Europe, AWS eu-central-1 / eu-west-1, Google Vertex europe-west). La inferencia queda fijada a esa misma región de la UE: los prompts y el contexto recuperado se procesan allí, no solo se almacenan.</p>
+      <p style={PP}>El único punto por donde podrían colarse transferencias es la capa del modelo: algunos modelos punteros solo se sirven desde EE. UU. Usamos endpoints alojados en la UE siempre que estén disponibles y, si un caso de uso requiere un modelo solo disponible fuera de la UE, se lo advertimos antes de activarlo, no después.</p>
+      <p style={{...PP, margin: 0}}>Para transferencias residuales (p. ej. un subencargado con sede en EE. UU.), el mecanismo legal son las CCT de la UE, complementadas con el Marco de Privacidad de Datos UE y EE. UU. cuando el proveedor esté certificado. Todo queda nombrado en el anexo de subencargados del DPA.</p>
+    </>,
   },
   {
     num: "2 · Entrenamiento",
@@ -89,7 +99,13 @@ const GOVERNANCE = [
       "Exigible por el tier empresarial de las grandes plataformas.",
       "DPA firmado + evidencia de certificaciones.",
     ],
-    detail: "Sus prompts, documentos y resultados no se usan para entrenar, ajustar (fine-tune) ni mejorar ningún modelo, ni el nuestro ni el del proveedor subyacente.",
+    detail: <>
+      <p style={PP}>Sus prompts, documentos y resultados no se usan para entrenar, ajustar (fine-tune) ni mejorar ningún modelo, ni el nuestro ni el del proveedor subyacente. Es exigible vía el tier empresarial o comercial de todas las grandes plataformas (Azure OpenAI, AWS Bedrock, Google Vertex, y los acuerdos enterprise de Anthropic y OpenAI excluyen contractualmente los datos del cliente del entrenamiento por defecto).</p>
+      <div style={SH}>Garantías que aportamos</div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>DPA firmado</strong>, con nosotros como encargado del tratamiento, nombrando a todos los subencargados y sus mecanismos de transferencia. Si tienen su propia plantilla de DPA, trabajamos sobre la suya.</span></div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>Evidencia de certificaciones</strong>, trasladada del proveedor de la plataforma y mantenida por nosotros como integrador: ISO/IEC 27001 (seguridad de la información), SOC 2 Tipo II (controles operativos auditados de forma independiente) e ISO/IEC 42001 (sistema de gestión de IA, publicada en 2023; la que señala madurez en gobernanza de IA).</span></div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>Nota sobre el alcance</strong>: las certificaciones pertenecen a cada parte. El proveedor de cloud o modelo tiene las suyas; nosotros como integrador tenemos las nuestras (o estamos trabajando para obtenerlas). La propuesta deja explícito qué certificado cubre qué capa.</span></div>
+    </>,
   },
   {
     num: "3 · Accesos",
@@ -100,7 +116,12 @@ const GOVERNANCE = [
       "Dos capas: a nivel de conector y a nivel de documento o registro.",
       "La IA no es una puerta trasera para escalar privilegios.",
     ],
-    detail: "El acceso se rige por RBAC vinculado a su proveedor de identidad (Entra ID, Okta o Google Workspace vía SSO/SCIM).",
+    detail: <>
+      <p style={PP}>El acceso se rige por RBAC vinculado a su proveedor de identidad (Entra ID, Okta o Google Workspace vía SSO/SCIM); altas, cambios y bajas se gestionan desde su propio IAM, sin crear un directorio de usuarios paralelo. Dos capas de control:</p>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>A nivel de conector</strong>: qué rol o departamento llega a qué sistema de origen (CRM, carpetas, correo, ticketing). Comercial ve el conector del CRM; Finanzas no, y viceversa.</span></div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>A nivel de documento o registro</strong>: dentro de un conector, los permisos se heredan del sistema de origen. Si un usuario no puede ver una carpeta en SharePoint, la IA tampoco se la muestra. Punto crítico para IT: la IA no se convierte en puerta trasera de escalada de privilegios.</span></div>
+      <p style={{...PP, margin: 0}}><strong>Entregable</strong>: una matriz de accesos rol, conector y permiso (rol × conector × lectura/escritura), documento vivo revisado en cada ciclo de optimización. Si lo prefieren como RACI o mapeado a un estándar interno suyo, nos adaptamos a su formato.</p>
+    </>,
   },
   {
     num: "4 · Cumplimiento",
@@ -111,7 +132,15 @@ const GOVERNANCE = [
       "Política de uso y formación a las personas usuarias.",
       "Trazabilidad y supervisión humana documentadas.",
     ],
-    detail: "El Reglamento Europeo de IA (AI Act) clasifica cada sistema por nivel de riesgo y exige obligaciones proporcionales.",
+    detail: <>
+      <p style={PP}>El Reglamento Europeo de IA (AI Act) clasifica cada sistema por nivel de riesgo y exige obligaciones proporcionales. Nuestro enfoque para cada caso de uso:</p>
+      <div style={SH}>Cómo lo abordamos</div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>Clasificación de riesgo</strong>: revisamos cada caso para ubicarlo en su categoría (riesgo mínimo, limitado o alto). La mayoría de usos internos de productividad caen en riesgo mínimo o limitado.</span></div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>Política de uso y formación</strong>: dejamos por escrito qué se puede y qué no se puede hacer con cada herramienta, y formamos a las personas usuarias antes de desplegar.</span></div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>Transparencia</strong>: las personas saben cuándo interactúan con un sistema de IA y cuándo un contenido ha sido generado o asistido por IA.</span></div>
+      <div style={BP}><span style={BD}>·</span><span style={BT}><strong>Trazabilidad y supervisión humana</strong>: registramos las decisiones relevantes y mantenemos a una persona responsable en el bucle para validar las salidas críticas.</span></div>
+      <p style={{...PP, margin: 0}}><strong>Nota</strong>: contenido orientativo. El alcance exacto de obligaciones se concreta caso a caso una vez priorizadas las iniciativas en el Workshop.</p>
+    </>,
   },
 ];
 
@@ -119,7 +148,7 @@ export default function Home() {
   const mainRef = useRef<HTMLElement>(null);
   const [activeNav, setActiveNav] = useState("#portada");
   const [selectedDay, setSelectedDay] = useState("02"); // "02" = Jueves, "03" = Viernes
-  const [selectedSlot, setSelectedSlot] = useState("17:00");
+  const [selectedSlot, setSelectedSlot] = useState("17:30");
   const [reserving, setReserving] = useState(false);
   const [reserved, setReserved] = useState(false);
 
@@ -227,8 +256,9 @@ export default function Home() {
         </nav>
 
         {/* footer */}
-        <div style={{ marginTop: "auto", paddingTop: 24, borderTop: "1px solid rgba(18,20,27,.12)", fontSize: ".68rem", color: "rgba(18,20,27,.42)", lineHeight: 1.55 }}>
-          Genai Sapiens Consulting<br />Tarragona &middot; 2026
+        <div style={{ marginTop: "auto", paddingTop: 24, borderTop: "1px solid rgba(18,20,27,.12)" }}>
+          <div style={{ fontSize: ".58rem", textTransform: "uppercase", letterSpacing: ".16em", color: "rgba(18,20,27,.4)", fontWeight: 700, marginBottom: 8 }}>Preparado para</div>
+          <div style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1rem", color: "#12141B" }}>COATRESA</div>
         </div>
       </aside>
 
@@ -253,7 +283,7 @@ export default function Home() {
                 Propuesta GSC x COATRESA
               </h1>
               <p style={{ fontFamily: "'Inter'", fontSize: "1.15rem", lineHeight: 1.6, color: "rgba(18,20,27,.66)", margin: "30px 0 0", maxWidth: "60ch" }}>
-                Una colaboración para mapear, con datos reales de toda la empresa, las oportunidades de IA y la colaboración que las hace realidad.
+                Una colaboración para mapear, con datos reales de toda la organización, dónde la IA puede aportar a una industria técnica y exportadora, y el recorrido completo que lo hace realidad.
               </p>
 
               {/* video boxes */}
@@ -380,7 +410,7 @@ export default function Home() {
                 </div>
 
                 <p style={{ fontSize: ".95rem", color: "rgba(18,20,27,.6)", margin: "26px 0 0", fontStyle: "italic", fontFamily: "'Fraunces',serif" }}>
-                  No partimos de cero: partimos de quiénes son ustedes.
+                  No partimos de cero: partimos de la realidad de COATRESA.
                 </p>
               </div>
             </div>
@@ -393,7 +423,16 @@ export default function Home() {
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, marginTop: 10 }}>El Workshop</div>
               </div>
               <div>
-                <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.8rem,3.4vw,2.6rem)", lineHeight: 1.1, letterSpacing: "-.015em", margin: 0 }}>La Fase 0 del programa</h2>
+                <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.8rem,3.4vw,2.6rem)", lineHeight: 1.1, letterSpacing: "-.015em", margin: 0 }}>La Fase inicial del programa</h2>
+                <p style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(18,20,27,.72)", margin: "20px 0 0", maxWidth: "62ch" }}>
+                  El Workshop es la auditoría inicial que recorre toda la organización para identificar y priorizar dónde la IA suma, y construir desde ahí el recorrido completo.
+                </p>
+                <div style={{ marginTop: 16, display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {["Administración", "Finanzas", "Operaciones", "RRHH", "Comercial", "Marketing"].map((dept) => (
+                    <span key={dept} style={{ background: "#EFE9DC", border: "1px solid rgba(18,20,27,.12)", borderRadius: 9999, padding: "6px 14px", fontSize: ".82rem", fontWeight: 500, color: "rgba(18,20,27,.65)" }}>{dept}</span>
+                  ))}
+                  <span style={{ border: "1.5px dashed rgba(0,37,255,.35)", color: "#0025FF", background: "rgba(0,37,255,.04)", borderRadius: 9999, padding: "6px 14px", fontSize: ".82rem", fontWeight: 500 }}>+ otras áreas</span>
+                </div>
 
                 {/* 3 step cards */}
                 <div className="gs-flow gs-3col" style={{ marginTop: 30, gap: 14, position: "relative" }}>
@@ -408,7 +447,7 @@ export default function Home() {
                       </div>
                       <div style={{ textAlign: "center", fontSize: ".66rem", textTransform: "uppercase", letterSpacing: ".16em", color: "#0025FF", fontWeight: 700, marginTop: 16 }}>01 &middot; Conocer</div>
                       <div style={{ textAlign: "center", fontWeight: 600, fontSize: "1.05rem", fontFamily: "'Fraunces',serif", marginTop: 6 }}>COATRESA por dentro</div>
-                      <p style={{ textAlign: "center", fontSize: ".86rem", lineHeight: 1.5, color: "rgba(18,20,27,.62)", margin: "8px 0 0" }}>Mapeamos áreas, operación y dónde la IA puede aportar, en toda la organización.</p>
+                      <p style={{ textAlign: "center", fontSize: ".86rem", lineHeight: 1.5, color: "rgba(18,20,27,.62)", margin: "8px 0 0" }}>Mapeamos áreas, procesos productivos y operación técnica, en toda la organización.</p>
                     </div>
                   </div>
 
@@ -420,7 +459,7 @@ export default function Home() {
                       </div>
                       <div style={{ textAlign: "center", fontSize: ".66rem", textTransform: "uppercase", letterSpacing: ".16em", color: "#0025FF", fontWeight: 700, marginTop: 16 }}>02 &middot; Priorizar</div>
                       <div style={{ textAlign: "center", fontWeight: 600, fontSize: "1.05rem", fontFamily: "'Fraunces',serif", marginTop: 6 }}>No partimos de cero</div>
-                      <p style={{ textAlign: "center", fontSize: ".86rem", lineHeight: 1.5, color: "rgba(18,20,27,.62)", margin: "8px 0 0" }}>Estructuramos, validamos y priorizamos su realidad para definir qué soluciones ofrecemos.</p>
+                      <p style={{ textAlign: "center", fontSize: ".86rem", lineHeight: 1.5, color: "rgba(18,20,27,.62)", margin: "8px 0 0" }}>Estructuramos y priorizamos la realidad de COATRESA para definir qué soluciones encajan.</p>
                     </div>
                   </div>
 
@@ -530,38 +569,18 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Qué se llevan */}
-                <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "38px 0 16px" }}>Qué se llevan</div>
+                {/* Entregables */}
+                <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "38px 0 16px" }}>Entregables</div>
                 <div className="gs-3col" style={{ gap: 16 }}>
                   {[
-                    { n: "01", title: "Mapa de oportunidades", desc: "Priorizado en todos los departamentos." },
-                    { n: "02", title: "Primer ciclo de trabajo", desc: "El primer ciclo acordado: por dónde se empieza." },
-                    { n: "03", title: "Recorrido y colaboración", desc: "El recorrido por fases y la base de la colaboración: alcance, plazo e inversión." },
+                    { title: "Informe de diagnóstico", desc: "Mapa de procesos por área, con el conocimiento técnico repartido entre documentos y personas, y dónde la IA puede ayudar.", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0025FF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 13l2 2 4-4"/></svg> },
+                    { title: "Matriz impacto por viabilidad", desc: "Con el primer ciclo recomendado.", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0025FF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 5 5-6"/></svg> },
+                    { title: "Propuesta de colaboración", desc: "Plan por fases, orden de implementación y coste de cada fase.", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0025FF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg> },
                   ].map((item) => (
-                    <div key={item.n} style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 14, padding: 22 }}>
-                      <div style={{ fontFamily: "'Fraunces',serif", fontSize: "1.6rem", fontWeight: 600, color: "#0025FF" }}>{item.n}</div>
-                      <div style={{ fontWeight: 600, fontSize: "1rem", marginTop: 12 }}>{item.title}</div>
-                      <p style={{ fontSize: ".88rem", lineHeight: 1.55, color: "rgba(18,20,27,.6)", margin: "7px 0 0" }}>{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Entregables del Workshop */}
-                <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "38px 0 16px" }}>Entregables del Workshop</div>
-                <div className="gs-2col-check" style={{ gap: 11 }}>
-                  {[
-                    "Estado actual",
-                    "Oportunidades por departamento",
-                    "Matriz con primer ciclo",
-                    "Borrador de roadmap (00 a 06)",
-                    "Notas de gobernanza",
-                    "Base de la colaboración",
-                  ].map((item) => (
-                    <div key={item} style={{ display: "flex", gap: 11, alignItems: "flex-start" }}>
-                      <span style={{ flex: "none", width: 20, height: 20, borderRadius: 6, background: "#92D15C", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 }}>
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#16310a" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L20 6" /></svg>
-                      </span>
-                      <span style={{ fontSize: ".95rem", lineHeight: 1.5, color: "rgba(18,20,27,.78)" }}>{item}</span>
+                    <div key={item.title} className="gs-lift" style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 16, padding: "24px 22px" }}>
+                      <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 42, height: 42, borderRadius: 11, background: "rgba(0,37,255,.08)", marginBottom: 18 }}>{item.icon}</span>
+                      <div style={{ fontWeight: 600, fontSize: "1.05rem", fontFamily: "'Fraunces',serif", marginBottom: 8 }}>{item.title}</div>
+                      <p style={{ fontSize: ".88rem", lineHeight: 1.55, color: "rgba(18,20,27,.6)", margin: 0 }}>{item.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -573,7 +592,7 @@ export default function Home() {
                     <div style={{ fontFamily: "'Fraunces',serif", fontSize: "1.9rem", fontWeight: 600, lineHeight: 1 }}>Workshop: 5.000 &euro; + IVA</div>
                   </div>
                   <p style={{ fontSize: ".98rem", lineHeight: 1.6, margin: "12px 0 0", color: "rgba(255,255,255,.86)", maxWidth: "64ch" }}>
-                    El precio y el plazo de la colaboración se definen en base a lo que acordemos en el Workshop, y esos 5.000 &euro; se descuentan de ese total si deciden continuar.
+                    El precio y el plazo de la colaboración se definen a partir de lo que se acuerde en el Workshop, y esos 5.000 &euro; se descuentan de ese total si COATRESA decide continuar.
                   </p>
                 </div>
               </div>
@@ -605,40 +624,40 @@ export default function Home() {
 
                 {/* Gantt timeline */}
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "44px 0 16px" }}>Hoja de ruta orientativa</div>
-                <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(18,20,27,.45)", fontWeight: 600, margin: "-4px 0 14px" }}>Secuencia opción B &middot; 3 casos &middot; 9 semanas</div>
+                <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(18,20,27,.45)", fontWeight: 600, margin: "-4px 0 14px" }}>Ejemplo de secuencia para COATRESA &middot; todas las áreas &middot; ~6 meses</div>
                 {/* Desktop Gantt */}
                 <div className="gs-gantt-desktop" style={{ overflowX: "auto" }}>
                   <div style={{ minWidth: 660, border: "1px solid rgba(18,20,27,.14)", borderRadius: 16, overflow: "hidden", background: "#FCFAF5" }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", background: "#EFE9DC", borderBottom: "1px solid rgba(18,20,27,.12)" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(6,1fr)", background: "#EFE9DC", borderBottom: "1px solid rgba(18,20,27,.12)" }}>
                       <div style={{ padding: "11px 16px", fontSize: ".62rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(18,20,27,.5)", fontWeight: 700 }}>Fase</div>
                       {GANTT_WEEKS.map((w) => (
                         <div key={w} style={{ padding: "11px 4px", textAlign: "center", fontSize: ".68rem", color: "rgba(18,20,27,.5)", fontWeight: 600, borderLeft: "1px solid rgba(18,20,27,.1)" }}>{w}</div>
                       ))}
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(6,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
                       <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Workshop</div>
-                      <div style={{ gridColumn: "2 / 4", margin: "10px 6px", background: "#92D15C", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .1s cubic-bezier(.22,.8,.3,1) both" }}>
-                        <div style={{ fontSize: ".72rem", fontWeight: 700, color: "#16310a" }}>Preparación + ejecución</div>
-                        <div style={{ fontSize: ".66rem", color: "rgba(22,49,10,.78)", marginTop: 2, lineHeight: 1.3 }}>Identificar oportunidades &middot; priorizar casos</div>
+                      <div style={{ gridColumn: "2 / 3", margin: "10px 6px", background: "#92D15C", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .1s cubic-bezier(.22,.8,.3,1) both" }}>
+                        <div style={{ fontSize: ".72rem", fontWeight: 700, color: "#16310a" }}>Auditoría transversal</div>
+                        <div style={{ fontSize: ".66rem", color: "rgba(22,49,10,.78)", marginTop: 2, lineHeight: 1.3 }}>Todas las áreas &middot; priorizar casos</div>
                       </div>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
-                      <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Desarrollo de casos</div>
-                      <div style={{ gridColumn: "3 / 7", margin: "10px 6px", background: "#0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .3s cubic-bezier(.22,.8,.3,1) both" }}>
-                        <div style={{ fontSize: ".72rem", fontWeight: 700, color: "#fff" }}>Prototipar &rarr; piloto &rarr; producción</div>
-                        <div style={{ fontSize: ".66rem", color: "rgba(255,255,255,.82)", marginTop: 2, lineHeight: 1.3 }}>3 casos en paralelo</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(6,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
+                      <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Desarrollo</div>
+                      <div style={{ gridColumn: "2 / 5", margin: "10px 6px", background: "#0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .3s cubic-bezier(.22,.8,.3,1) both" }}>
+                        <div style={{ fontSize: ".72rem", fontWeight: 700, color: "#fff" }}>Esquema PPP: Prototipo &rarr; Piloto &rarr; Producto</div>
+                        <div style={{ fontSize: ".66rem", color: "rgba(255,255,255,.82)", marginTop: 2, lineHeight: 1.3 }}>Automatizar tareas, consultar documentación técnica, asistir en calidad y export</div>
                       </div>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
-                      <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Adopción + monitoreo</div>
-                      <div style={{ gridColumn: "4 / 11", margin: "10px 6px", border: "1.5px dashed #0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .5s cubic-bezier(.22,.8,.3,1) both" }}>
-                        <div style={{ fontSize: ".7rem", fontWeight: 600, color: "#0025FF" }}>Seguimiento del uso real en cada caso desplegado</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(6,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
+                      <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Adopción</div>
+                      <div style={{ gridColumn: "3 / 7", margin: "10px 6px", border: "1.5px dashed #0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .5s cubic-bezier(.22,.8,.3,1) both" }}>
+                        <div style={{ fontSize: ".7rem", fontWeight: 600, color: "#0025FF" }}>Seguimiento del uso real en planta y oficinas</div>
                       </div>
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
-                      <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Refinamiento + cambio</div>
-                      <div style={{ gridColumn: "7 / 11", margin: "10px 6px", background: "#0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .7s cubic-bezier(.22,.8,.3,1) both" }}>
-                        <div style={{ fontSize: ".72rem", fontWeight: 700, color: "#fff" }}>Pulir + transferir autonomía</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "150px repeat(6,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
+                      <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Refinamiento</div>
+                      <div style={{ gridColumn: "5 / 7", margin: "10px 6px", background: "#0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .7s cubic-bezier(.22,.8,.3,1) both" }}>
+                        <div style={{ fontSize: ".72rem", fontWeight: 700, color: "#fff" }}>Fine tuning + Transferir Autonomía</div>
                         <div style={{ fontSize: ".66rem", color: "rgba(255,255,255,.82)", marginTop: 2, lineHeight: 1.3 }}>Acompañar la adopción &middot; iterar sobre feedback</div>
                       </div>
                     </div>
@@ -648,10 +667,10 @@ export default function Home() {
                 {/* Mobile Gantt — stacked cards */}
                 <div className="gs-gantt-mobile" style={{ display: "none", flexDirection: "column", gap: 10 }}>
                   {[
-                    { label: "Workshop", weeks: "S1 – S2", bg: "#92D15C", color: "#16310a", title: "Preparación + ejecución", sub: "Identificar oportunidades · priorizar casos" },
-                    { label: "Desarrollo de casos", weeks: "S3 – S6", bg: "#0025FF", color: "#fff", title: "Prototipar → piloto → producción", sub: "3 casos en paralelo" },
-                    { label: "Adopción + monitoreo", weeks: "S4 – S9", bg: "transparent", color: "#0025FF", title: "Seguimiento del uso real en cada caso desplegado", sub: "", border: true },
-                    { label: "Refinamiento + cambio", weeks: "S7 – S9", bg: "#0025FF", color: "#fff", title: "Pulir + transferir autonomía", sub: "Acompañar la adopción · iterar sobre feedback" },
+                    { label: "Workshop", weeks: "M1", bg: "#92D15C", color: "#16310a", title: "Auditoría transversal", sub: "Todas las áreas · priorizar casos" },
+                    { label: "Desarrollo", weeks: "M1 – M4", bg: "#0025FF", color: "#fff", title: "Esquema PPP: Prototipo → Piloto → Producto", sub: "Automatizar tareas, consultar documentación técnica, asistir en calidad y export" },
+                    { label: "Adopción", weeks: "M2 – M6", bg: "transparent", color: "#0025FF", title: "Seguimiento del uso real en planta y oficinas", sub: "", border: true },
+                    { label: "Refinamiento", weeks: "M4 – M6", bg: "#0025FF", color: "#fff", title: "Fine tuning + Transferir Autonomía", sub: "Acompañar la adopción · iterar sobre feedback" },
                   ].map((item, i) => (
                     <div key={i} style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 14, padding: "16px 18px" }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
@@ -669,22 +688,6 @@ export default function Home() {
                   La fase <strong style={{ fontStyle: "normal" }}>Desarrollo de casos</strong> es donde se construye el grueso de los resultados.
                 </p>
 
-                {/* Después del programa */}
-                <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "40px 0 16px" }}>Después del programa</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
-                  {[
-                    "COATRESA podría operar los casos con su equipo interno de forma autónoma.",
-                    "Cartera de oportunidades identificadas, disponible para decidir siguientes rondas.",
-                    "Opción de contratar una nueva ronda sobre nuevos casos o evolucionar hacia la Fábrica de IA.",
-                  ].map((item) => (
-                    <div key={item} className="gs-reveal" style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                      <span style={{ flex: "none", width: 22, height: 22, borderRadius: 7, background: "rgba(0,37,255,.1)", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0025FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                      </span>
-                      <span style={{ fontSize: ".95rem", lineHeight: 1.55, color: "rgba(18,20,27,.78)" }}>{item}</span>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </section>
@@ -697,7 +700,7 @@ export default function Home() {
               </div>
               <div>
                 <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.8rem,3.4vw,2.6rem)", lineHeight: 1.1, letterSpacing: "-.015em", margin: 0 }}>
-                  Cómo trabajamos juntos
+                  Cómo trabajaremos juntos
                 </h2>
                 <p style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(18,20,27,.72)", margin: "20px 0 0", maxWidth: "62ch" }}>
                   Sprints de dos semanas con ritmo fijo, comunicación continua y todo el trabajo en una carpeta de Drive compartida.
@@ -747,19 +750,25 @@ export default function Home() {
                   <div style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 16, padding: 24 }}>
                     <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(18,20,27,.5)", fontWeight: 700 }}>Fases 01 a 05 &middot; Implementación</div>
                     <div style={{ fontFamily: "'Fraunces',serif", fontSize: "1.5rem", fontWeight: 600, marginTop: 12 }}>A medida</div>
-                    <p style={{ fontSize: ".88rem", color: "rgba(18,20,27,.62)", margin: "8px 0 0", lineHeight: 1.5 }}>Presupuestadas a partir del Workshop.</p>
+                    <p style={{ fontSize: ".88rem", color: "rgba(18,20,27,.62)", margin: "8px 0 0", lineHeight: 1.5 }}>Presupuestadas a partir del Workshop. Mensualidad.</p>
                   </div>
                   <div style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 16, padding: 24 }}>
                     <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(18,20,27,.5)", fontWeight: 700 }}>Fase 06 &middot; Acompañamiento</div>
-                    <div style={{ fontFamily: "'Fraunces',serif", fontSize: "1.5rem", fontWeight: 600, marginTop: 12 }}>Cuota mensual</div>
-                    <p style={{ fontSize: ".88rem", color: "rgba(18,20,27,.62)", margin: "8px 0 0", lineHeight: 1.5 }}>Formación, ajustes y transferencia.</p>
+                    <div style={{ fontFamily: "'Fraunces',serif", fontSize: "1.5rem", fontWeight: 600, marginTop: 12 }}>A medida</div>
+                    <p style={{ fontSize: ".88rem", color: "rgba(18,20,27,.62)", margin: "8px 0 0", lineHeight: 1.5 }}>Formación, ajustes, transferencia y hypercare. Mensualidad.</p>
                   </div>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 14, background: "#0025FF", color: "#fff", borderRadius: 14, padding: "16px 22px", marginTop: 14 }}>
+                  <span style={{ flex: "none", width: 36, height: 36, borderRadius: 9, background: "rgba(255,255,255,.14)", border: "1px solid rgba(255,255,255,.25)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+                  </span>
+                  <span style={{ fontSize: ".92rem", lineHeight: 1.5, color: "rgba(255,255,255,.88)" }}>El coste de cada fase se concreta en el Workshop y forma parte de sus entregables.</span>
                 </div>
 
                 {/* Gobernanza de datos */}
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "44px 0 16px" }}>Gobernanza de datos</div>
                 <p style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(18,20,27,.72)", margin: "20px 0 0", maxWidth: "62ch" }}>
-                  Antes de conectar cualquier sistema dejamos por escrito dónde viven sus datos, quién accede y bajo qué garantías. Los titulares de un vistazo; el detalle, dentro de cada bloque.
+                  Dónde viven los datos de COATRESA, quién accede y bajo qué garantías: por escrito antes de conectar nada. Su know-how técnico no queda expuesto.
                 </p>
 
                 {/* 3 blue governance cards */}
@@ -782,7 +791,7 @@ export default function Home() {
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
                   </span>
                   <span style={{ fontSize: ".95rem", lineHeight: 1.65, color: "rgba(255,255,255,.78)" }}>
-                    <strong style={{ color: "#fff" }}>Compromiso de confidencialidad.</strong> La información que compartáis para preparar el Workshop se trata de forma segura y se usa solo para esa sesión. Se elimina después de la reunión y, si no llegamos a un acuerdo, no almacenaremos nada.
+                    <strong style={{ color: "#fff" }}>Compromiso de confidencialidad.</strong> La información compartida para preparar el Workshop se trata de forma segura y se usa solo para esa sesión. Se elimina después de la reunión y, si no se llega a un acuerdo, no se almacena nada.
                   </span>
                 </div>
 
@@ -815,7 +824,7 @@ export default function Home() {
                           Ver detalle
                         </summary>
                         <div className="gs-detail" style={{ marginTop: 14, maxWidth: "70ch" }}>
-                          <p style={{ fontSize: ".9rem", lineHeight: 1.65, color: "rgba(18,20,27,.7)", margin: 0 }}>{d.detail}</p>
+                          <div style={{ maxWidth: "70ch" }}>{d.detail}</div>
                         </div>
                       </details>
                     </div>
@@ -827,15 +836,33 @@ export default function Home() {
 
           {/* ────── 08 CONTACTO ────── */}
           <footer id="contacto" style={{ padding: "64px 0 72px" }}>
-            <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "#0025FF", fontWeight: 600, marginBottom: 14 }}>Agenda</div>
-            <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.8rem,3.4vw,2.6rem)", lineHeight: 1.1, letterSpacing: "-.015em", margin: 0 }}>Elijamos cuándo hacer el Workshop</h2>
-            <p style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(18,20,27,.72)", margin: "18px 0 0", maxWidth: "60ch" }}>
-              Estas son nuestras franjas disponibles. Coged el hueco que mejor os venga y lo bloqueamos al instante.
-            </p>
+            <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "#0025FF", fontWeight: 600, marginBottom: 14 }}>Preparación y agenda</div>
+            <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.8rem,3.4vw,2.6rem)", lineHeight: 1.1, letterSpacing: "-.015em", margin: 0 }}>Preparemos la sesión</h2>
             <div style={{ display: "flex", alignItems: "center", gap: 9, marginTop: 16, fontSize: ".84rem", color: "rgba(18,20,27,.6)" }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0025FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
               Sesión online &middot; 2h30 a 3h
             </div>
+
+            {/* Formulario link */}
+            <Link href="/formulario" className="gs-lift" style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", marginTop: 26, background: "#12141B", border: "1px solid rgba(0,37,255,.5)", borderRadius: 20, padding: "28px 30px", textDecoration: "none", boxShadow: "0 0 30px rgba(0,37,255,.15)" }}>
+              <span style={{ flex: "none", width: 48, height: 48, borderRadius: 13, background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 13l2 2 4-4"/></svg>
+              </span>
+              <span style={{ flex: 1, minWidth: 200 }}>
+                <div style={{ fontSize: ".62rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(255,255,255,.5)", fontWeight: 700, marginBottom: 6 }}>Antes del Workshop &middot; Importante</div>
+                <span style={{ display: "block", fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.18rem", color: "#fff", lineHeight: 1.2 }}>Formulario por departamento</span>
+                <span style={{ display: "block", fontSize: ".9rem", lineHeight: 1.5, color: "rgba(255,255,255,.62)", marginTop: 6 }}>Un formulario por departamento que permite conocer las necesidades de cada área de COATRESA y preparar mejor la reunión.</span>
+              </span>
+              <span style={{ flex: "none", display: "inline-flex", alignItems: "center", gap: 9, background: "#0025FF", color: "#fff", borderRadius: 11, padding: "13px 24px", fontWeight: 600, fontSize: ".95rem" }}>
+                Abrir
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+              </span>
+            </Link>
+
+            <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.8rem,3.4vw,2.6rem)", lineHeight: 1.1, letterSpacing: "-.015em", margin: "40px 0 0" }}>Agendemos el Workshop</h2>
+            <p style={{ fontSize: "1.05rem", lineHeight: 1.7, color: "rgba(18,20,27,.72)", margin: "18px 0 0", maxWidth: "60ch" }}>
+              Estas son las franjas disponibles para la sesión. Al elegir una, queda bloqueada al instante.
+            </p>
 
             {/* Day + slot picker */}
             <div className="gs-lift gs-scheduler" style={{ marginTop: 26, background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 20, padding: 26, gap: 30 }}>
@@ -843,10 +870,10 @@ export default function Home() {
                 <div style={{ fontSize: ".66rem", textTransform: "uppercase", letterSpacing: ".16em", color: "rgba(18,20,27,.5)", fontWeight: 700, marginBottom: 14 }}>Días disponibles &middot; julio 2026</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {[
-                    { num: "02", dow: "Jueves", slots: "17:00 – 24:00" },
-                    { num: "03", dow: "Viernes", slots: "12:00 – 24:00" },
+                    { num: "02", dow: "Jueves", slots: "17:30 a 20:00" },
+                    { num: "03", dow: "Viernes", slots: "12:00 a 20:00" },
                   ].map((d, i) => (
-                    <label key={d.num} className="ws-day" onClick={() => { setSelectedDay(d.num); setSelectedSlot(d.num === "02" ? "17:00" : "12:00"); setReserved(false); }}>
+                    <label key={d.num} className="ws-day" onClick={() => { setSelectedDay(d.num); setSelectedSlot(d.num === "02" ? "17:30" : "12:00"); setReserved(false); }}>
                       <input type="radio" name="ws-day" defaultChecked={i === 0} />
                       <span className="ws-day-card" style={{ display: "flex", alignItems: "center", gap: 14, border: "1px solid rgba(18,20,27,.16)", background: "#FCFAF5", borderRadius: 13, padding: "13px 16px" }}>
                         <span style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: 46, height: 46, borderRadius: 10, background: "#EFE9DC", flex: "none" }}>
@@ -866,8 +893,8 @@ export default function Home() {
                 <div style={{ fontSize: ".66rem", textTransform: "uppercase", letterSpacing: ".16em", color: "rgba(18,20,27,.5)", fontWeight: 700, marginBottom: 14 }}>Franjas de inicio</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10 }}>
                   {(selectedDay === "02"
-                    ? ["17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"]
-                    : ["12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"]
+                    ? ["17:30","18:00","18:30","19:00","19:30","20:00"]
+                    : ["12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00"]
                   ).map((t) => (
                     <label key={t} className="ws-slot">
                       <input type="radio" name="ws-slot" checked={selectedSlot === t} onChange={() => setSelectedSlot(t)} />
@@ -918,21 +945,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Formulario link */}
-            <Link href="/formulario" className="gs-lift" style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", marginTop: 16, background: "#12141B", borderRadius: 18, padding: "24px 28px", textDecoration: "none" }}>
-              <span style={{ flex: "none", width: 48, height: 48, borderRadius: 13, background: "rgba(255,255,255,.1)", border: "1px solid rgba(255,255,255,.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 13l2 2 4-4"/></svg>
-              </span>
-              <span style={{ flex: 1, minWidth: 200 }}>
-                <span style={{ display: "block", fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.18rem", color: "#fff", lineHeight: 1.2 }}>Formulario</span>
-                <span style={{ display: "block", fontSize: ".9rem", lineHeight: 1.5, color: "rgba(255,255,255,.62)", marginTop: 6 }}>Un formulario corto por departamento. Nos deja preparar la sesión por adelantado.</span>
-              </span>
-              <span style={{ flex: "none", display: "inline-flex", alignItems: "center", gap: 9, background: "#0025FF", color: "#fff", borderRadius: 11, padding: "13px 24px", fontWeight: 600, fontSize: ".95rem" }}>
-                Abrir
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-              </span>
-            </Link>
-
             {/* divider */}
             <div style={{ height: 1, background: "rgba(18,20,27,.12)", margin: "48px 0 40px" }} />
 
@@ -942,7 +954,7 @@ export default function Home() {
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "#0025FF", fontWeight: 600, marginBottom: 18 }}>Contacto</div>
                 <p style={{ fontSize: ".95rem", color: "rgba(18,20,27,.6)", margin: 0, lineHeight: 1.7 }}>
                   Genai Sapiens Consulting &middot; Tarragona, España<br />
-                  Higini Moré &middot; higini@genaisapiens.com<br />
+                  Responsable del proyecto: Lucía &middot; hola@genaisapiens.com<br />
                   +34 682 656 056 &middot; genaisapiens.com
                 </p>
               </div>
