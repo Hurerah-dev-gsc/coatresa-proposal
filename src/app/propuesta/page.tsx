@@ -274,7 +274,7 @@ export default function Home() {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 44 }}>
                 <div>
                   <div className="gs-lift" style={{ position: "relative", aspectRatio: "16/9", borderRadius: 16, overflow: "hidden", background: "#12141B", border: "1px solid rgba(18,20,27,.14)" }}>
-                    <video controls playsInline style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
+                    <video controls playsInline poster="https://res.cloudinary.com/dqmpbfpqw/video/upload/so_1/v1782607800/WhatsApp_Video_2026-06-27_at_19.58.56_xkfujl.jpg" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
                       <source src="https://res.cloudinary.com/dqmpbfpqw/video/upload/v1782607800/WhatsApp_Video_2026-06-27_at_19.58.56_xkfujl.mp4" type="video/mp4" />
                     </video>
                   </div>
@@ -282,7 +282,7 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="gs-lift" style={{ position: "relative", aspectRatio: "16/9", borderRadius: 16, overflow: "hidden", background: "#12141B", border: "1px solid rgba(18,20,27,.14)" }}>
-                    <video controls playsInline style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
+                    <video controls playsInline poster="https://res.cloudinary.com/dqmpbfpqw/video/upload/so_1/v1782607782/WhatsApp_Video_2026-06-27_at_19.58.56_1_wqhbxs.jpg" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
                       <source src="https://res.cloudinary.com/dqmpbfpqw/video/upload/v1782607782/WhatsApp_Video_2026-06-27_at_19.58.56_1_wqhbxs.mp4" type="video/mp4" />
                     </video>
                   </div>
