@@ -272,21 +272,22 @@ export default function Home() {
 
               {/* video boxes */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 44 }}>
-                {[
-                  { label: "¿Qué es GSC?", gradColor: "rgba(0,37,255,.32)" },
-                  { label: "GSC x COATRESA", gradColor: "rgba(146,209,92,.3)" },
-                ].map((v, i) => (
-                  <div key={i}>
-                    <div className="gs-lift" style={{ position: "relative", aspectRatio: "16/9", borderRadius: 16, overflow: "hidden", background: "#12141B", border: "1px solid rgba(18,20,27,.14)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
-                      <span style={{ position: "absolute", inset: 0, background: `radial-gradient(circle at 50% 42%,${v.gradColor},transparent 60%)` }} />
-                      <span style={{ position: "relative", width: 60, height: 60, borderRadius: "50%", background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.35)", display: "flex", alignItems: "center", justifyContent: "center", animation: `gsPulse 2.6s ease-in-out ${i * 0.8}s infinite` }}>
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M8 5v14l11-7z" /></svg>
-                      </span>
-                      <span style={{ position: "absolute", left: 16, top: 14, fontSize: ".62rem", textTransform: "uppercase", letterSpacing: ".18em", color: "rgba(255,255,255,.7)", fontWeight: 700 }}>Espacio para vídeo</span>
-                    </div>
-                    <div style={{ fontWeight: 600, fontSize: "1rem", marginTop: 14, fontFamily: "'Fraunces',serif" }}>{v.label}</div>
+                <div>
+                  <div className="gs-lift" style={{ position: "relative", aspectRatio: "16/9", borderRadius: 16, overflow: "hidden", background: "#12141B", border: "1px solid rgba(18,20,27,.14)" }}>
+                    <video controls playsInline style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
+                      <source src="https://res.cloudinary.com/dqmpbfpqw/video/upload/v1782607800/WhatsApp_Video_2026-06-27_at_19.58.56_xkfujl.mp4" type="video/mp4" />
+                    </video>
                   </div>
-                ))}
+                  <div style={{ fontWeight: 600, fontSize: "1rem", marginTop: 14, fontFamily: "'Fraunces',serif" }}>¿Qué es GSC?</div>
+                </div>
+                <div>
+                  <div className="gs-lift" style={{ position: "relative", aspectRatio: "16/9", borderRadius: 16, overflow: "hidden", background: "#12141B", border: "1px solid rgba(18,20,27,.14)" }}>
+                    <video controls playsInline style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
+                      <source src="https://res.cloudinary.com/dqmpbfpqw/video/upload/v1782607782/WhatsApp_Video_2026-06-27_at_19.58.56_1_wqhbxs.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                  <div style={{ fontWeight: 600, fontSize: "1rem", marginTop: 14, fontFamily: "'Fraunces',serif" }}>GSC x COATRESA</div>
+                </div>
               </div>
             </div>
           </section>
