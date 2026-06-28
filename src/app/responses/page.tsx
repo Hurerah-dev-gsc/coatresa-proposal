@@ -118,7 +118,7 @@ export default async function ResponsesPage() {
               const subFiles = files.filter((f) => f.submission_id === sub.id);
 
               return (
-                <div key={sub.id} style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 18, padding: "28px 28px 24px", overflow: "hidden", wordBreak: "break-word", overflowWrap: "break-word" }}>
+                <div key={sub.id} className="gs-response-card" style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 18, padding: "28px 28px 24px", overflow: "hidden", wordBreak: "break-word", overflowWrap: "break-word" }}>
                   {/* Header */}
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20, flexWrap: "wrap", gap: 10 }}>
                     <div style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "1.2rem" }}>Formulario</div>

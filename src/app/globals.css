@@ -89,3 +89,82 @@ nav a:hover { background: #F5F1E9 !important; color: #0025FF !important; border-
 .form-input-white:focus { border-color: #0025FF; box-shadow: 0 0 0 3px rgba(0,37,255,0.12); }
 
 textarea.form-input, textarea.form-input-white { min-height: 96px; resize: vertical; }
+
+/* ===== LAYOUT CLASSES (desktop defaults) ===== */
+.gs-root {
+  height: 100dvh;
+  overflow: hidden;
+  background: #F5F1E9;
+  color: #12141B;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: flex-start;
+}
+
+.gs-sidebar {
+  width: 252px;
+  flex-shrink: 0;
+  align-self: stretch;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #EFE9DC;
+  border-right: 1px solid rgba(18,20,27,.12);
+  padding: 34px 22px;
+  box-sizing: border-box;
+}
+
+.gs-main {
+  flex: 1;
+  min-width: 0;
+  height: 100dvh;
+  overflow-y: auto;
+}
+
+.gs-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+
+/* ===== LAYOUT GRID CLASSES (desktop defaults) ===== */
+.gs-section-grid { display: grid; grid-template-columns: 200px 1fr; gap: 40px; align-items: start; }
+.gs-2col { display: grid; grid-template-columns: 1fr 1fr; }
+.gs-3col { display: grid; grid-template-columns: repeat(3,1fr); }
+.gs-stats-grid { display: grid; grid-template-columns: repeat(4,1fr); }
+.gs-2col-check { display: grid; grid-template-columns: 1fr 1fr; }
+.gs-cycle { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; }
+.gs-scheduler { display: grid; grid-template-columns: 300px 1fr; }
+.gs-governance-grid { display: grid; grid-template-columns: repeat(3,1fr); }
+.gs-gantt-desktop { display: block; }
+.gs-gantt-mobile { display: none; }
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .gs-sidebar { display: none; }
+  .gs-main { width: 100%; }
+  .gs-container { padding: 0 20px; }
+
+  .gs-section-grid { grid-template-columns: 1fr; gap: 12px; }
+  .gs-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .gs-3col { grid-template-columns: 1fr; }
+  .gs-2col { grid-template-columns: 1fr; }
+  .gs-cycle { grid-template-columns: 1fr; }
+  .gs-cycle-arrow { display: none; }
+  .gs-scheduler { grid-template-columns: 1fr; }
+  .gs-band { padding: 24px 18px !important; }
+  .gs-footer-contact { flex-direction: column !important; align-items: flex-start !important; }
+  .gs-governance-grid { grid-template-columns: 1fr; }
+  .gs-2col-check { grid-template-columns: 1fr; }
+  .gs-matrix { min-height: 200px !important; }
+  .gs-matrix .gs-dot { display: none !important; }
+  .gs-area-card { padding: 18px 14px 16px !important; }
+  .gs-response-card { padding: 20px 16px 18px !important; }
+
+  /* Gantt: hide the grid table, show mobile version */
+  .gs-gantt-desktop { display: none !important; }
+  .gs-gantt-mobile { display: flex !important; }
+}

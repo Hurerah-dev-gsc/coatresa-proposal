@@ -190,24 +190,10 @@ export default function Home() {
   };
 
   return (
-    <div style={{ height: "100vh", overflow: "hidden", background: "#F5F1E9", color: "#12141B", fontFamily: "'Inter',system-ui,sans-serif", WebkitFontSmoothing: "antialiased", display: "flex", alignItems: "flex-start" }}>
+    <div className="gs-root">
       {/* ═══════ SIDEBAR ═══════ */}
-      <aside
-        style={{
-          width: 252,
-          flexShrink: 0,
-          alignSelf: "stretch",
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          background: "#EFE9DC",
-          borderRight: "1px solid rgba(18,20,27,.12)",
-          padding: "34px 22px",
-          boxSizing: "border-box",
-        }}
-      >
+      <aside className="gs-sidebar">
+
         {/* logo */}
         <img src="/logo.png" alt="Genai Sapiens Consulting" style={{ width: "100%", height: "auto", display: "block" }} />
         <div style={{ fontSize: ".6rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.45)", fontWeight: 600, marginTop: 18 }}>
@@ -249,9 +235,9 @@ export default function Home() {
       {/* ═══════ MAIN ═══════ */}
       <main
         ref={mainRef}
-        style={{ flex: 1, minWidth: 0, height: "100vh", overflowY: "auto" }}
+        className="gs-main"
       >
-        <div style={{ maxWidth: 980, margin: "0 auto", padding: "0 56px" }}>
+        <div className="gs-container">
 
           {/* ────── 01 PORTADA ────── */}
           <section id="portada" style={{ position: "relative", overflow: "hidden", padding: "64px 0 64px", borderBottom: "1px solid rgba(18,20,27,.14)" }}>
@@ -263,7 +249,7 @@ export default function Home() {
                 <span style={{ width: 34, height: 2, background: "#0025FF" }} />
                 <span style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".26em", color: "#0025FF", fontWeight: 600 }}>Julio 2026</span>
               </div>
-              <h1 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.5rem,calc((100vw - 360px) / 13),4rem)", lineHeight: 1.04, letterSpacing: "-.02em", margin: 0, whiteSpace: "nowrap" }}>
+              <h1 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.5rem,calc((100vw - 360px) / 13),4rem)", lineHeight: 1.04, letterSpacing: "-.02em", margin: 0 }}>
                 Propuesta GSC x COATRESA
               </h1>
               <p style={{ fontFamily: "'Inter'", fontSize: "1.15rem", lineHeight: 1.6, color: "rgba(18,20,27,.66)", margin: "30px 0 0", maxWidth: "60ch" }}>
@@ -271,7 +257,7 @@ export default function Home() {
               </p>
 
               {/* video boxes */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 44 }}>
+              <div className="gs-2col" style={{ gap: 20, marginTop: 44 }}>
                 <div>
                   <div className="gs-lift" style={{ position: "relative", aspectRatio: "16/9", borderRadius: 16, overflow: "hidden", background: "#12141B", border: "1px solid rgba(18,20,27,.14)" }}>
                     <video controls playsInline poster="https://res.cloudinary.com/dqmpbfpqw/video/upload/so_1/v1782607800/WhatsApp_Video_2026-06-27_at_19.58.56_xkfujl.jpg" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}>
@@ -294,7 +280,7 @@ export default function Home() {
 
           {/* ────── BANDA · CONOCEMOS COATRESA ────── */}
           <section style={{ margin: "8px 0 4px" }}>
-            <div style={{ position: "relative", overflow: "hidden", background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 22, padding: "40px 42px", boxShadow: "0 10px 30px rgba(18,20,27,.05)" }}>
+            <div className="gs-band" style={{ position: "relative", overflow: "hidden", background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 22, padding: "40px 42px", boxShadow: "0 10px 30px rgba(18,20,27,.05)" }}>
               <span style={{ position: "absolute", top: -80, right: -50, width: 260, height: 260, borderRadius: "50%", background: "radial-gradient(circle,rgba(0,37,255,.10),transparent 70%)", animation: "gsBlob 13s ease-in-out infinite", pointerEvents: "none", zIndex: 0 }} />
               <div style={{ position: "relative", zIndex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 22 }}>
@@ -304,7 +290,7 @@ export default function Home() {
                 <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.9rem,3.6vw,2.7rem)", lineHeight: 1.08, letterSpacing: "-.015em", margin: "0 0 28px" }}>COATRESA</h2>
 
                 {/* 4 stat cards */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
+                <div className="gs-stats-grid" style={{ gap: 16 }}>
                   {/* 1983 */}
                   <div className="gs-reveal" style={{ transitionDelay: "0s" }}>
                     <div className="gs-lift" style={{ background: "#F5F1E9", border: "1px solid rgba(18,20,27,.12)", borderRadius: 16, padding: "22px 20px 20px", height: "100%", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: 14 }}>
@@ -402,7 +388,7 @@ export default function Home() {
 
           {/* ────── 02 EL WORKSHOP ────── */}
           <section id="workshop" style={{ padding: "72px 0", borderBottom: "1px solid rgba(18,20,27,.14)" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 40, alignItems: "start" }}>
+            <div className="gs-section-grid">
               <div style={{ position: "sticky", top: 40 }}>
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, marginTop: 10 }}>El Workshop</div>
               </div>
@@ -410,7 +396,7 @@ export default function Home() {
                 <h2 style={{ fontFamily: "'Fraunces',serif", fontWeight: 600, fontSize: "clamp(1.8rem,3.4vw,2.6rem)", lineHeight: 1.1, letterSpacing: "-.015em", margin: 0 }}>La Fase 0 del programa</h2>
 
                 {/* 3 step cards */}
-                <div className="gs-flow" style={{ marginTop: 30, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, position: "relative" }}>
+                <div className="gs-flow gs-3col" style={{ marginTop: 30, gap: 14, position: "relative" }}>
                   {/* connecting line */}
                   <div style={{ position: "absolute", left: "8%", right: "8%", top: 34, height: 2, background: "rgba(18,20,27,.12)", transformOrigin: "left", animation: "gsDraw 1.1s .15s cubic-bezier(.22,.8,.3,1) both", zIndex: 0 }} />
 
@@ -502,7 +488,7 @@ export default function Home() {
                     <span style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".18em", color: "rgba(18,20,27,.5)", fontWeight: 600 }}>Impacto</span>
                   </div>
                   <div style={{ position: "relative" }}>
-                    <div style={{ position: "relative", display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", gap: 12 }}>
+                    <div className="gs-matrix" style={{ position: "relative", display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr", gap: 12, overflow: "hidden" }}>
                       <div style={{ border: "1px solid rgba(18,20,27,.16)", background: "#FCFAF5", borderRadius: 12, padding: "16px 16px", display: "flex", flexDirection: "column", justifyContent: "flex-end", minHeight: 120 }}>
                         <div style={{ fontWeight: 700, fontSize: ".98rem", color: "#12141B", fontFamily: "'Fraunces',serif" }}>Apuestas estratégicas</div>
                         <div style={{ fontSize: ".8rem", color: "rgba(18,20,27,.58)", marginTop: 5, lineHeight: 1.4 }}>Alto impacto, viabilidad por construir.</div>
@@ -546,7 +532,7 @@ export default function Home() {
 
                 {/* Qué se llevan */}
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "38px 0 16px" }}>Qué se llevan</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+                <div className="gs-3col" style={{ gap: 16 }}>
                   {[
                     { n: "01", title: "Mapa de oportunidades", desc: "Priorizado en todos los departamentos." },
                     { n: "02", title: "Primer ciclo de trabajo", desc: "El primer ciclo acordado: por dónde se empieza." },
@@ -562,7 +548,7 @@ export default function Home() {
 
                 {/* Entregables del Workshop */}
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "38px 0 16px" }}>Entregables del Workshop</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 11 }}>
+                <div className="gs-2col-check" style={{ gap: 11 }}>
                   {[
                     "Estado actual",
                     "Oportunidades por departamento",
@@ -596,7 +582,7 @@ export default function Home() {
 
           {/* ────── 03 RECORRIDO ────── */}
           <section id="recorrido" style={{ padding: "72px 0", borderBottom: "1px solid rgba(18,20,27,.14)" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 40, alignItems: "start" }}>
+            <div className="gs-section-grid">
               <div style={{ position: "sticky", top: 40 }}>
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, marginTop: 10 }}>Recorrido</div>
               </div>
@@ -609,12 +595,10 @@ export default function Home() {
                 {/* Phase list */}
                 <div style={{ marginTop: 36 }}>
                   {FASES.map((f) => (
-                    <div key={f.id} className="gs-phase" style={{ padding: "18px 0 18px", borderTop: `2px solid ${f.border}` }}>
-                      <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
-                        <span style={{ fontSize: ".66rem", color: "rgba(18,20,27,.5)", fontWeight: 600, letterSpacing: ".04em", minWidth: 64 }}>Fase {f.id}</span>
-                        <span style={{ fontWeight: 600, fontSize: "1.05rem", fontFamily: "'Fraunces',serif" }}>{f.title}</span>
-                      </div>
-                      <p style={{ fontSize: ".92rem", color: "rgba(18,20,27,.62)", margin: "8px 0 0 78px", lineHeight: 1.55, maxWidth: "60ch" }}>{f.desc}</p>
+                    <div key={f.id} className="gs-phase gs-phase-item" style={{ padding: "18px 0", borderTop: `2px solid ${f.border}` }}>
+                      <div style={{ fontSize: ".66rem", color: "rgba(18,20,27,.5)", fontWeight: 600, letterSpacing: ".04em", marginBottom: 4 }}>Fase {f.id}</div>
+                      <div style={{ fontWeight: 600, fontSize: "1.05rem", fontFamily: "'Fraunces',serif" }}>{f.title}</div>
+                      <p style={{ fontSize: ".92rem", color: "rgba(18,20,27,.62)", margin: "6px 0 0", lineHeight: 1.55 }}>{f.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -622,16 +606,15 @@ export default function Home() {
                 {/* Gantt timeline */}
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "44px 0 16px" }}>Hoja de ruta orientativa</div>
                 <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(18,20,27,.45)", fontWeight: 600, margin: "-4px 0 14px" }}>Secuencia opción B &middot; 3 casos &middot; 9 semanas</div>
-                <div style={{ overflowX: "auto" }}>
+                {/* Desktop Gantt */}
+                <div className="gs-gantt-desktop" style={{ overflowX: "auto" }}>
                   <div style={{ minWidth: 660, border: "1px solid rgba(18,20,27,.14)", borderRadius: 16, overflow: "hidden", background: "#FCFAF5" }}>
-                    {/* Header */}
                     <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", background: "#EFE9DC", borderBottom: "1px solid rgba(18,20,27,.12)" }}>
                       <div style={{ padding: "11px 16px", fontSize: ".62rem", textTransform: "uppercase", letterSpacing: ".14em", color: "rgba(18,20,27,.5)", fontWeight: 700 }}>Fase</div>
                       {GANTT_WEEKS.map((w) => (
                         <div key={w} style={{ padding: "11px 4px", textAlign: "center", fontSize: ".68rem", color: "rgba(18,20,27,.5)", fontWeight: 600, borderLeft: "1px solid rgba(18,20,27,.1)" }}>{w}</div>
                       ))}
                     </div>
-                    {/* Workshop row */}
                     <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
                       <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Workshop</div>
                       <div style={{ gridColumn: "2 / 4", margin: "10px 6px", background: "#92D15C", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .1s cubic-bezier(.22,.8,.3,1) both" }}>
@@ -639,7 +622,6 @@ export default function Home() {
                         <div style={{ fontSize: ".66rem", color: "rgba(22,49,10,.78)", marginTop: 2, lineHeight: 1.3 }}>Identificar oportunidades &middot; priorizar casos</div>
                       </div>
                     </div>
-                    {/* Desarrollo row */}
                     <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
                       <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Desarrollo de casos</div>
                       <div style={{ gridColumn: "3 / 7", margin: "10px 6px", background: "#0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .3s cubic-bezier(.22,.8,.3,1) both" }}>
@@ -647,14 +629,12 @@ export default function Home() {
                         <div style={{ fontSize: ".66rem", color: "rgba(255,255,255,.82)", marginTop: 2, lineHeight: 1.3 }}>3 casos en paralelo</div>
                       </div>
                     </div>
-                    {/* Adopción row */}
                     <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
                       <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Adopción + monitoreo</div>
                       <div style={{ gridColumn: "4 / 11", margin: "10px 6px", border: "1.5px dashed #0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .5s cubic-bezier(.22,.8,.3,1) both" }}>
                         <div style={{ fontSize: ".7rem", fontWeight: 600, color: "#0025FF" }}>Seguimiento del uso real en cada caso desplegado</div>
                       </div>
                     </div>
-                    {/* Refinamiento row */}
                     <div style={{ display: "grid", gridTemplateColumns: "150px repeat(9,1fr)", borderTop: "1px solid rgba(18,20,27,.1)", alignItems: "center", minHeight: 70 }}>
                       <div style={{ padding: "10px 16px", fontWeight: 600, fontSize: ".92rem" }}>Refinamiento + cambio</div>
                       <div style={{ gridColumn: "7 / 11", margin: "10px 6px", background: "#0025FF", borderRadius: 9, padding: "9px 12px", transformOrigin: "left", animation: "gsGrow .8s .7s cubic-bezier(.22,.8,.3,1) both" }}>
@@ -663,6 +643,27 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
+                </div>
+
+                {/* Mobile Gantt — stacked cards */}
+                <div className="gs-gantt-mobile" style={{ display: "none", flexDirection: "column", gap: 10 }}>
+                  {[
+                    { label: "Workshop", weeks: "S1 – S2", bg: "#92D15C", color: "#16310a", title: "Preparación + ejecución", sub: "Identificar oportunidades · priorizar casos" },
+                    { label: "Desarrollo de casos", weeks: "S3 – S6", bg: "#0025FF", color: "#fff", title: "Prototipar → piloto → producción", sub: "3 casos en paralelo" },
+                    { label: "Adopción + monitoreo", weeks: "S4 – S9", bg: "transparent", color: "#0025FF", title: "Seguimiento del uso real en cada caso desplegado", sub: "", border: true },
+                    { label: "Refinamiento + cambio", weeks: "S7 – S9", bg: "#0025FF", color: "#fff", title: "Pulir + transferir autonomía", sub: "Acompañar la adopción · iterar sobre feedback" },
+                  ].map((item, i) => (
+                    <div key={i} style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 14, padding: "16px 18px" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                        <span style={{ fontWeight: 600, fontSize: ".95rem" }}>{item.label}</span>
+                        <span style={{ fontSize: ".72rem", color: "rgba(18,20,27,.45)", fontWeight: 600, background: "#EFE9DC", borderRadius: 6, padding: "3px 10px" }}>{item.weeks}</span>
+                      </div>
+                      <div style={{ background: item.bg, border: item.border ? "1.5px dashed #0025FF" : "none", borderRadius: 10, padding: "10px 14px" }}>
+                        <div style={{ fontSize: ".82rem", fontWeight: 700, color: item.color }}>{item.title}</div>
+                        {item.sub && <div style={{ fontSize: ".72rem", color: item.color, opacity: 0.8, marginTop: 3, lineHeight: 1.3 }}>{item.sub}</div>}
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 <p style={{ fontSize: ".9rem", color: "rgba(18,20,27,.6)", margin: "14px 0 0", fontStyle: "italic", fontFamily: "'Fraunces',serif" }}>
                   La fase <strong style={{ fontStyle: "normal" }}>Desarrollo de casos</strong> es donde se construye el grueso de los resultados.
@@ -690,7 +691,7 @@ export default function Home() {
 
           {/* ────── 04 PROPUESTA ────── */}
           <section id="propuesta" style={{ padding: "72px 0", borderBottom: "1px solid rgba(18,20,27,.14)" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 40, alignItems: "start" }}>
+            <div className="gs-section-grid">
               <div style={{ position: "sticky", top: 40 }}>
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, marginTop: 10 }}>Propuesta</div>
               </div>
@@ -704,17 +705,17 @@ export default function Home() {
 
                 {/* El ciclo semanal */}
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "38px 0 16px" }}>El ciclo semanal</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr auto 1fr", alignItems: "stretch", gap: 12 }}>
+                <div className="gs-cycle" style={{ gap: 12 }}>
                   <div style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 16, padding: 22 }}>
                     <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".16em", color: "#0025FF", fontWeight: 700 }}>Lunes &middot; Reporting</div>
                     <p style={{ fontSize: ".9rem", lineHeight: 1.55, color: "rgba(18,20,27,.66)", margin: "10px 0 0" }}>Prioridades, objetivos, acciones, lo que necesitamos de su parte, calendario y enlace a la carpeta.</p>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", color: "rgba(18,20,27,.3)", fontSize: "1.4rem" }}>&rarr;</div>
+                  <div className="gs-cycle-arrow" style={{ display: "flex", alignItems: "center", color: "rgba(18,20,27,.3)", fontSize: "1.4rem" }}>&rarr;</div>
                   <div style={{ background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 16, padding: 22 }}>
                     <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".16em", color: "#0025FF", fontWeight: 700 }}>Viernes &middot; Avance</div>
                     <p style={{ fontSize: ".9rem", lineHeight: 1.55, color: "rgba(18,20,27,.66)", margin: "10px 0 0" }}>Avance semanal con vídeo demo o walkthrough del progreso.</p>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", color: "rgba(18,20,27,.3)", fontSize: "1.4rem" }}>&rarr;</div>
+                  <div className="gs-cycle-arrow" style={{ display: "flex", alignItems: "center", color: "rgba(18,20,27,.3)", fontSize: "1.4rem" }}>&rarr;</div>
                   <div style={{ background: "#12141B", color: "#F5F1E9", borderRadius: 16, padding: 22 }}>
                     <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".16em", color: "#92D15C", fontWeight: 700 }}>Cada 2 semanas</div>
                     <p style={{ fontSize: ".9rem", lineHeight: 1.55, color: "rgba(245,241,233,.8)", margin: "10px 0 0" }}>Cierre de sprint: revisamos lo entregado y planificamos el siguiente.</p>
@@ -722,7 +723,7 @@ export default function Home() {
                 </div>
 
                 {/* 3 info cards */}
-                <div className="gs-reveal" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 12, marginTop: 18 }}>
+                <div className="gs-reveal gs-3col" style={{ gap: 12, marginTop: 18 }}>
                   {[
                     { title: "Cockpit en Drive", sub: "Estado y acciones por fechas", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0025FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg> },
                     { title: "Comunicación continua", sub: "Siempre al día del avance", icon: <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#0025FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg> },
@@ -737,7 +738,7 @@ export default function Home() {
 
                 {/* Fases e inversión */}
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "rgba(18,20,27,.5)", fontWeight: 600, margin: "44px 0 16px" }}>Fases e inversión</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
+                <div className="gs-3col" style={{ gap: 16 }}>
                   <div style={{ background: "#FCFAF5", border: "1px solid #0025FF", borderRadius: 16, padding: 24 }}>
                     <div style={{ fontSize: ".7rem", textTransform: "uppercase", letterSpacing: ".14em", color: "#0025FF", fontWeight: 700 }}>Fase 00 &middot; Workshop</div>
                     <div style={{ fontFamily: "'Fraunces',serif", fontSize: "1.5rem", fontWeight: 600, marginTop: 12 }}>5.000 &euro; + IVA</div>
@@ -762,7 +763,7 @@ export default function Home() {
                 </p>
 
                 {/* 3 blue governance cards */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginTop: 26 }}>
+                <div className="gs-governance-grid" style={{ gap: 14, marginTop: 26 }}>
                   {[
                     { title: "Residencia de datos en la UE", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg> },
                     { title: "Cero entrenamiento con sus datos", icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></svg> },
@@ -837,7 +838,7 @@ export default function Home() {
             </div>
 
             {/* Day + slot picker */}
-            <div className="gs-lift" style={{ marginTop: 26, background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 20, padding: 26, display: "grid", gridTemplateColumns: "300px 1fr", gap: 30 }}>
+            <div className="gs-lift gs-scheduler" style={{ marginTop: 26, background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 20, padding: 26, gap: 30 }}>
               <div>
                 <div style={{ fontSize: ".66rem", textTransform: "uppercase", letterSpacing: ".16em", color: "rgba(18,20,27,.5)", fontWeight: 700, marginBottom: 14 }}>Días disponibles &middot; julio 2026</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -936,7 +937,7 @@ export default function Home() {
             <div style={{ height: 1, background: "rgba(18,20,27,.12)", margin: "48px 0 40px" }} />
 
             {/* Contact info */}
-            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 30 }}>
+            <div className="gs-footer-contact" style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: 30 }}>
               <div>
                 <div style={{ fontSize: ".72rem", textTransform: "uppercase", letterSpacing: ".2em", color: "#0025FF", fontWeight: 600, marginBottom: 18 }}>Contacto</div>
                 <p style={{ fontSize: ".95rem", color: "rgba(18,20,27,.6)", margin: 0, lineHeight: 1.7 }}>

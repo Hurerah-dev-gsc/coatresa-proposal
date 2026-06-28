@@ -296,7 +296,7 @@ export default function FormularioPage() {
           <p style={{ fontSize: ".95rem", lineHeight: 1.6, color: "rgba(18,20,27,.6)", margin: "0 0 24px", maxWidth: "60ch" }}>A&ntilde;adan tantas &aacute;reas como tengan: compras, producci&oacute;n, administraci&oacute;n, atenci&oacute;n al cliente, log&iacute;stica…</p>
 
           {areas.map((area, idx) => (
-            <div key={area.id} style={{ position: "relative", background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 18, padding: "26px 26px 24px", marginBottom: 16 }}>
+            <div key={area.id} className="gs-area-card" style={{ position: "relative", background: "#FCFAF5", border: "1px solid rgba(18,20,27,.12)", borderRadius: 18, padding: "26px 26px 24px", marginBottom: 16 }}>
               {/* Area header */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
